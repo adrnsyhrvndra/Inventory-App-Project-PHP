@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2020 at 02:37 PM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.8
+-- Waktu pembuatan: 11 Sep 2020 pada 08.11
+-- Versi server: 10.3.16-MariaDB
+-- Versi PHP: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_detail_transaksi`
+-- Struktur dari tabel `tb_detail_transaksi`
 --
 
 CREATE TABLE `tb_detail_transaksi` (
@@ -38,7 +39,7 @@ CREATE TABLE `tb_detail_transaksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_kategori`
+-- Struktur dari tabel `tb_kategori`
 --
 
 CREATE TABLE `tb_kategori` (
@@ -49,7 +50,7 @@ CREATE TABLE `tb_kategori` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_kode_perusahaan`
+-- Struktur dari tabel `tb_kode_perusahaan`
 --
 
 CREATE TABLE `tb_kode_perusahaan` (
@@ -60,7 +61,7 @@ CREATE TABLE `tb_kode_perusahaan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_login`
+-- Struktur dari tabel `tb_login`
 --
 
 CREATE TABLE `tb_login` (
@@ -75,7 +76,7 @@ CREATE TABLE `tb_login` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_pegawai`
+-- Struktur dari tabel `tb_pegawai`
 --
 
 CREATE TABLE `tb_pegawai` (
@@ -91,7 +92,7 @@ CREATE TABLE `tb_pegawai` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_pembeli`
+-- Struktur dari tabel `tb_pembeli`
 --
 
 CREATE TABLE `tb_pembeli` (
@@ -106,7 +107,7 @@ CREATE TABLE `tb_pembeli` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_produk`
+-- Struktur dari tabel `tb_produk`
 --
 
 CREATE TABLE `tb_produk` (
@@ -124,7 +125,7 @@ CREATE TABLE `tb_produk` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_supplier`
+-- Struktur dari tabel `tb_supplier`
 --
 
 CREATE TABLE `tb_supplier` (
@@ -138,7 +139,7 @@ CREATE TABLE `tb_supplier` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_tansaksi`
+-- Struktur dari tabel `tb_tansaksi`
 --
 
 CREATE TABLE `tb_tansaksi` (
@@ -149,6 +150,93 @@ CREATE TABLE `tb_tansaksi` (
   `jumlah_pembayaran_uang` int(11) NOT NULL,
   `tangggal_pembayaran` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `tb_detail_transaksi`
+--
+ALTER TABLE `tb_detail_transaksi`
+  ADD PRIMARY KEY (`id_detail_transaksi`);
+
+--
+-- Indeks untuk tabel `tb_kategori`
+--
+ALTER TABLE `tb_kategori`
+  ADD PRIMARY KEY (`id_kategori`);
+
+--
+-- Indeks untuk tabel `tb_kode_perusahaan`
+--
+ALTER TABLE `tb_kode_perusahaan`
+  ADD PRIMARY KEY (`id_kode`);
+
+--
+-- Indeks untuk tabel `tb_login`
+--
+ALTER TABLE `tb_login`
+  ADD PRIMARY KEY (`id_login`),
+  ADD KEY `id_pegawai` (`id_pegawai`,`id_kode`),
+  ADD KEY `id_kode` (`id_kode`);
+
+--
+-- Indeks untuk tabel `tb_pegawai`
+--
+ALTER TABLE `tb_pegawai`
+  ADD PRIMARY KEY (`id_pegawai`);
+
+--
+-- Indeks untuk tabel `tb_pembeli`
+--
+ALTER TABLE `tb_pembeli`
+  ADD PRIMARY KEY (`id_pembeli`);
+
+--
+-- Indeks untuk tabel `tb_produk`
+--
+ALTER TABLE `tb_produk`
+  ADD PRIMARY KEY (`id_produk`),
+  ADD KEY `id_supplier` (`id_supplier`,`id_kategori`),
+  ADD KEY `id_kategori` (`id_kategori`);
+
+--
+-- Indeks untuk tabel `tb_supplier`
+--
+ALTER TABLE `tb_supplier`
+  ADD PRIMARY KEY (`id_supplier`);
+
+--
+-- Indeks untuk tabel `tb_tansaksi`
+--
+ALTER TABLE `tb_tansaksi`
+  ADD PRIMARY KEY (`id_transaksi`),
+  ADD KEY `id_pembeli` (`id_pembeli`);
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `tb_login`
+--
+ALTER TABLE `tb_login`
+  ADD CONSTRAINT `tb_login_ibfk_1` FOREIGN KEY (`id_pegawai`) REFERENCES `tb_pegawai` (`id_pegawai`),
+  ADD CONSTRAINT `tb_login_ibfk_2` FOREIGN KEY (`id_kode`) REFERENCES `tb_kode_perusahaan` (`id_kode`);
+
+--
+-- Ketidakleluasaan untuk tabel `tb_produk`
+--
+ALTER TABLE `tb_produk`
+  ADD CONSTRAINT `tb_produk_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `tb_supplier` (`id_supplier`),
+  ADD CONSTRAINT `tb_produk_ibfk_2` FOREIGN KEY (`id_kategori`) REFERENCES `tb_kategori` (`id_kategori`);
+
+--
+-- Ketidakleluasaan untuk tabel `tb_tansaksi`
+--
+ALTER TABLE `tb_tansaksi`
+  ADD CONSTRAINT `tb_tansaksi_ibfk_1` FOREIGN KEY (`id_pembeli`) REFERENCES `tb_pembeli` (`id_pembeli`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
