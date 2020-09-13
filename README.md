@@ -1,1 +1,1 @@
-# inventory-app-php-project
+Sistem Informasi Inventaris Untuk Kasir Supermarket
