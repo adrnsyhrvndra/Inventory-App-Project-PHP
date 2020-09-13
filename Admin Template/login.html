@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  SELECT * FROM tb_pegawai INNER JOIN tb_login ON tb_pegawai.id_pegawai = tb_login.id_pegawai WHERE email = $email AND password = md5('$password')
 <head>
 
   <meta charset="utf-8">
