@@ -1,14 +1,14 @@
 <?php 
 
-    // @session_start();
+    @session_start();
 
-    // include 'inc/koneksi.php';
+    include 'inc/koneksi.php';
 
-    // if (@$_SESSION['email']) {
+    if (@$_SESSION['email']) {
 
-    //     header('location: index.php'); // Kita Redirect ke halaman login
+        header('location: index.php'); // Kita Redirect ke halaman login
 
-    // }
+    }
 
 ?>
 

@@ -24,7 +24,7 @@
 
     //Set the OAuth 2.0 Redirect URI
 
-    $google_client->setRedirectUri('http://localhost/inventory-app-php-project/index.php');
+    $google_client->setRedirectUri('http://localhost/Sistem-Informasi-Inventaris-Kasir-PHP-7/index.php');
 
     // to get the email and profile 
 
